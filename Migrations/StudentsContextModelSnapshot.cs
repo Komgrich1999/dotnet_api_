@@ -31,6 +31,12 @@ namespace KomgrichApi.Migrations
                     b.Property<string>("fullname")
                         .HasColumnType("text");
 
+                    b.Property<string>("student_id")
+                        .HasColumnType("text");
+
+                    b.Property<long>("universities_id")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.ToTable("Student");

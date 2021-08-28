@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace KomgrichApi.Migrations.universities
 {
-    public partial class initial : Migration
+    public partial class universitiesinitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,8 @@ namespace KomgrichApi.Migrations.universities
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    university_name = table.Column<string>(type: "text", nullable: true)
+                    university_name = table.Column<string>(type: "text", nullable: true),
+                    student_id = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {

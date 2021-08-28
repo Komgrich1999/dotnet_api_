@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace KomgrichApi.Migrations
+namespace KomgrichApi.Migrations.universities
 {
-    [DbContext(typeof(StudentsContext))]
-    [Migration("20210826184521_initial")]
-    partial class initial
+    [DbContext(typeof(universitiesContext))]
+    [Migration("20210827145534_universitiesinitial")]
+    partial class universitiesinitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,22 +20,22 @@ namespace KomgrichApi.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("KomgrichApi.Models.Students", b =>
+            modelBuilder.Entity("KomgrichApi.Models.universities", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("degree")
-                        .HasColumnType("text");
+                    b.Property<long>("student_id")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("fullname")
+                    b.Property<string>("university_name")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Student");
+                    b.ToTable("universitie");
                 });
 #pragma warning restore 612, 618
         }

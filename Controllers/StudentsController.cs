@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KomgrichApi.Models;
+using Dapper;
+
 
 namespace KomgrichApi.Controllers
 {
@@ -14,10 +16,11 @@ namespace KomgrichApi.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly StudentsContext _context;
-
+        
         public StudentsController(StudentsContext context)
         {
             _context = context;
+            
         }
 
         // GET: api/Students
@@ -31,8 +34,22 @@ namespace KomgrichApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Students>> GetStudents(long id)
         {
-            var students = await _context.Student.FindAsync(id);
+            //var students = await _context.Student.FindAsync(id);
+            //var students = await ( from student in await _context.Set<Students>()
+            //                join university in await _context.Set<universities>()
+            //                on student.universities_id equals university.Id
+            //                select new { student.student_id , student.fullname, university.university_name  });
+            
 
+            var students =  await _context.Student.FromSqlInterpolated($" select student_id,fullname,\"degree \",university_name from \"Student\" " 
+                                                           + " join \"universitie\" on \"universitie\".\"Id\" = \"Student\".\"universities_id\" "
+                                                           + "where student_id = '{id}' ").ToListAsync();
+            
+            
+            //var students = await _conn.QueryAsync<Students>(" select student_id,fullname,\"degree \",university_name from \"Student\" " 
+            //                                                + " join \"universitie\" on \"universitie\".\"Id\" = \"Student\".\"universities_id\" "
+            //                                                + "where student_id = '{id}' ");
+            
             if (students == null)
             {
                 return NotFound();

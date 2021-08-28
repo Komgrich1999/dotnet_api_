@@ -25,6 +25,9 @@ namespace KomgrichApi.Migrations.universities
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<long>("student_id")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("university_name")
                         .HasColumnType("text");
 
