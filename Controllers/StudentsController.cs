@@ -35,18 +35,19 @@ namespace KomgrichApi.Controllers
         public async Task<ActionResult<Students>> GetStudents(long id)
         {
             //var students = await _context.Student.FindAsync(id);
-            //var students = await ( from student in await _context.Set<Students>()
-            //                join university in await _context.Set<universities>()
-            //                on student.universities_id equals university.Id
-            //                select new { student.student_id , student.fullname, university.university_name  });
-            var query = @" select * from 'Student' where student_id = '{0}' ";
+            
+            string _id = id.ToString();
+            Console.WriteLine(_id.GetType());
+            var query = $"select * from \"Student\"" 
+                       +"join universitie as uni "
+                       +"on uni.\"Id\" = \"Student\".\"universities_id\""
+                       +$" where student_id = '{_id}' ";
 
-            var students =  await _context.Student.FromSqlRaw(query,id).AsNoTracking().FirstOrDefaultAsync();
+            var students =  await _context.Student.FromSqlRaw(query)
+                            .OrderByDescending(st => st.Id)
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync();
             
-            
-            //var students = await _conn.QueryAsync<Students>(" select student_id,fullname,\"degree \",university_name from \"Student\" " 
-            //                                                + " join \"universitie\" on \"universitie\".\"Id\" = \"Student\".\"universities_id\" "
-            //                                                + "where student_id = '{id}' ");
             
             if (students == null)
             {
