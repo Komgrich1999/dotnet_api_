@@ -39,11 +39,9 @@ namespace KomgrichApi.Controllers
             //                join university in await _context.Set<universities>()
             //                on student.universities_id equals university.Id
             //                select new { student.student_id , student.fullname, university.university_name  });
-            
+            var query = @" select * from 'Student' where student_id = '{0}' ";
 
-            var students =  await _context.Student.FromSqlInterpolated($" select student_id,fullname,\"degree \",university_name from \"Student\" " 
-                                                           + " join \"universitie\" on \"universitie\".\"Id\" = \"Student\".\"universities_id\" "
-                                                           + "where student_id = '{id}' ").ToListAsync();
+            var students =  await _context.Student.FromSqlRaw(query,id).AsNoTracking().FirstOrDefaultAsync();
             
             
             //var students = await _conn.QueryAsync<Students>(" select student_id,fullname,\"degree \",university_name from \"Student\" " 

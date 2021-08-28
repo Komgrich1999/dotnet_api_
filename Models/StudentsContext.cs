@@ -7,7 +7,7 @@ namespace KomgrichApi.Models
         public StudentsContext(DbContextOptions<StudentsContext> options)
             : base(options)
         {
-
+            
         }
         public DbSet<Students> Student {get;set;}
     }

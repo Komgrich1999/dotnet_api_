@@ -9248,6 +9248,7 @@
       "Dapper.SqlBuilder >= 2.0.78",
       "Microsoft.Bcl.Async >= 1.0.168",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.9",
+      "Microsoft.EntityFrameworkCore.Relational >= 5.0.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.9",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 5.0.7",
@@ -9307,6 +9308,10 @@
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
+            "target": "Package",
+            "version": "[5.0.9, )"
+          },
+          "Microsoft.EntityFrameworkCore.Relational": {
             "target": "Package",
             "version": "[5.0.9, )"
           },
