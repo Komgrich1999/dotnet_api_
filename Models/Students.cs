@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace KomgrichApi.Models
 {
     public class Students

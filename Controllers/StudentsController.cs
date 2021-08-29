@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KomgrichApi.Models;
 using Dapper;
-
+using Newtonsoft.Json;
 
 namespace KomgrichApi.Controllers
 {
@@ -38,10 +38,10 @@ namespace KomgrichApi.Controllers
             
             string _id = id.ToString();
             Console.WriteLine(_id.GetType());
-            var query = $"select * from \"Student\"" 
-                       +"join universitie as uni "
-                       +"on uni.\"Id\" = \"Student\".\"universities_id\""
-                       +$" where student_id = '{_id}' ";
+            var query = @"select uni.""Id"",student_id,fullname,degree,uni.""university_name"",st.universities_id from ""Student"" as st" 
+                       +" join universitie as uni "
+                       +"on uni.\"Id\" = st.universities_id"
+                       +$" where student_id = '{_id}' offset 0";
 
             var students =  await _context.Student.FromSqlRaw(query)
                             .OrderByDescending(st => st.Id)
@@ -53,8 +53,8 @@ namespace KomgrichApi.Controllers
             {
                 return NotFound();
             }
-
-            return students;
+            
+            return  students;
         }
 
         // PUT: api/Students/5
