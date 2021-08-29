@@ -38,15 +38,20 @@ namespace KomgrichApi.Controllers
             
             string _id = id.ToString();
             Console.WriteLine(_id.GetType());
-            var query = @"select uni.""Id"",student_id,fullname,degree,uni.""university_name"",st.universities_id from ""Student"" as st" 
+            var query = @"select uni.""Id"", st.student_id , st.fullname , st.""degree"" , uni.university_name , st.""universities_id"" from ""Student"" as st" 
                        +" join universitie as uni "
                        +"on uni.\"Id\" = st.universities_id"
                        +$" where student_id = '{_id}' offset 0";
-
+            /*
             var students =  await _context.Student.FromSqlRaw(query)
                             .OrderByDescending(st => st.Id)
-                            .AsNoTracking()
-                            .FirstOrDefaultAsync();
+                            .Include("universitie")
+                            .ToListAsync()
+                            ;*/
+
+            var students = await _context.Student.FromSqlRaw(query)
+                                                 .Include("universitie")
+                                                 .ToListAsync();
             
             
             if (students == null)
@@ -54,7 +59,7 @@ namespace KomgrichApi.Controllers
                 return NotFound();
             }
             
-            return  students;
+            return Ok(students) ;
         }
 
         // PUT: api/Students/5

@@ -38,7 +38,7 @@ namespace KomgrichApi
 
             services.AddControllers();
 
-            
+        
 
             /*
             services.AddSwaggerGen(c =>
