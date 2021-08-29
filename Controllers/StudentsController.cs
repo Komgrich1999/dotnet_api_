@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KomgrichApi.Models;
-using Dapper;
-using Newtonsoft.Json;
 
 namespace KomgrichApi.Controllers
 {
@@ -16,11 +14,10 @@ namespace KomgrichApi.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly StudentsContext _context;
-        
+
         public StudentsController(StudentsContext context)
         {
             _context = context;
-            
         }
 
         // GET: api/Students
@@ -34,32 +31,14 @@ namespace KomgrichApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Students>> GetStudents(long id)
         {
-            //var students = await _context.Student.FindAsync(id);
-            
-            string _id = id.ToString();
-            Console.WriteLine(_id.GetType());
-            var query = @"select uni.""Id"", st.student_id , st.fullname , st.""degree"" , uni.university_name , st.""universities_id"" from ""Student"" as st" 
-                       +" join universitie as uni "
-                       +"on uni.\"Id\" = st.universities_id"
-                       +$" where student_id = '{_id}' offset 0";
-            /*
-            var students =  await _context.Student.FromSqlRaw(query)
-                            .OrderByDescending(st => st.Id)
-                            .Include("universitie")
-                            .ToListAsync()
-                            ;*/
+            var students = await _context.Student.FindAsync(id);
 
-            var students = await _context.Student.FromSqlRaw(query)
-                                                 .Include("universitie")
-                                                 .ToListAsync();
-            
-            
             if (students == null)
             {
                 return NotFound();
             }
-            
-            return Ok(students) ;
+
+            return students;
         }
 
         // PUT: api/Students/5

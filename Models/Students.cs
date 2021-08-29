@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace KomgrichApi.Models
 {
@@ -9,6 +9,7 @@ namespace KomgrichApi.Models
         public string fullname {get; set;}
         public string degree {get; set;} 
 
-        public long universities_id {get; set;}
+        public ICollection<StudentsUniversities> StudentsUniversitie {get; set;}
+       
     }
 }

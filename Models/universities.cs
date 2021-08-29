@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace KomgrichApi.Models
 {
     public class universities
@@ -5,7 +7,7 @@ namespace KomgrichApi.Models
         public long Id {get;set;}
         public string university_name {get; set;}
 
-        public long student_id {get; set;}
+        public ICollection<StudentsUniversities> StudentsUniversitie {get; set;}
         
     }
 }

@@ -31,11 +31,15 @@ namespace KomgrichApi
             services.AddDbContext<StudentsContext>(options => 
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
             );
-
+            //
             services.AddDbContext<universitiesContext>(options => 
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
             );
 
+
+            services.AddDbContext<SchoolContext>(options => 
+            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
+            );
             services.AddControllers();
 
         
