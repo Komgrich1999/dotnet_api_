@@ -9,6 +9,6 @@ namespace KomgrichApi.Models
         {
             
         }
-        public DbSet<Students> Student {get;set;}
+        public DbSet<Students> Students {get;set;}
     }
 }

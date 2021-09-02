@@ -40,12 +40,11 @@ namespace KomgrichApi.Migrations
                 columns: table => new
                 {
                     StudentId = table.Column<long>(type: "bigint", nullable: false),
-                    UniversitieId = table.Column<long>(type: "bigint", nullable: false),
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    universitieId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentsUniversities", x => new { x.StudentId, x.UniversitieId });
+                    table.PrimaryKey("PK_StudentsUniversities", x => new { x.StudentId, x.universitieId });
                     table.ForeignKey(
                         name: "FK_StudentsUniversities_Students_StudentId",
                         column: x => x.StudentId,
@@ -53,17 +52,17 @@ namespace KomgrichApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentsUniversities_universities_UniversitieId",
-                        column: x => x.UniversitieId,
+                        name: "FK_StudentsUniversities_universities_universitieId",
+                        column: x => x.universitieId,
                         principalTable: "universities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentsUniversities_UniversitieId",
+                name: "IX_StudentsUniversities_universitieId",
                 table: "StudentsUniversities",
-                column: "UniversitieId");
+                column: "universitieId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

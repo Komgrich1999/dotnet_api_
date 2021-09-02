@@ -22,16 +22,25 @@ namespace KomgrichApi.Controllers
 
         // GET: api/Students
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Students>>> GetStudent()
+        public async Task<ActionResult<IEnumerable<Students>>> GetStudents()
         {
-            return await _context.Student.ToListAsync();
+            //return await _context.Students.ToListAsync();
+            var result = await _context.Students.FromSqlRaw("select * from \"Students\" ")
+                                            .Select(st => new {
+                                                fullname = st.fullname
+                                            })
+                                            .AsNoTracking()
+                                            .ToListAsync();
+            
+           
+            return Ok(result);
         }
 
         // GET: api/Students/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Students>> GetStudents(long id)
         {
-            var students = await _context.Student.FindAsync(id);
+            var students = await _context.Students.FindAsync(id);
 
             if (students == null)
             {
@@ -77,7 +86,7 @@ namespace KomgrichApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Students>> PostStudents(Students students)
         {
-            _context.Student.Add(students);
+            _context.Students.Add(students);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetStudents", new { id = students.Id }, students);
@@ -87,13 +96,13 @@ namespace KomgrichApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudents(long id)
         {
-            var students = await _context.Student.FindAsync(id);
+            var students = await _context.Students.FindAsync(id);
             if (students == null)
             {
                 return NotFound();
             }
 
-            _context.Student.Remove(students);
+            _context.Students.Remove(students);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +110,7 @@ namespace KomgrichApi.Controllers
 
         private bool StudentsExists(long id)
         {
-            return _context.Student.Any(e => e.Id == id);
+            return _context.Students.Any(e => e.Id == id);
         }
     }
 }

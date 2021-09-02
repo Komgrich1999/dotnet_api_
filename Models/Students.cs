@@ -9,7 +9,9 @@ namespace KomgrichApi.Models
         public string fullname {get; set;}
         public string degree {get; set;} 
 
-        public ICollection<StudentsUniversities> StudentsUniversitie {get; set;}
+        
+        public ICollection<universities> universitie {get; set;}
+        
        
     }
 }

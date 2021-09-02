@@ -7,7 +7,9 @@ namespace KomgrichApi.Models
         public long Id {get;set;}
         public string university_name {get; set;}
 
-        public ICollection<StudentsUniversities> StudentsUniversitie {get; set;}
+        
+        public ICollection<Students> Student {get; set;}
+        
         
     }
 }

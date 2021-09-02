@@ -11,6 +11,6 @@ namespace KomgrichApi.Models
 
         }   
 
-        public DbSet<universities> universitie {get; set;}
+        public DbSet<universities> universities {get; set;}
     }
 }

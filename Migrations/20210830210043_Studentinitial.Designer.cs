@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KomgrichApi.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20210829213841_Studentinitial")]
+    [Migration("20210830210043_Studentinitial")]
     partial class Studentinitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,24 +41,6 @@ namespace KomgrichApi.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("KomgrichApi.Models.StudentsUniversities", b =>
-                {
-                    b.Property<long>("StudentId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("UniversitieId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("StudentId", "UniversitieId");
-
-                    b.HasIndex("UniversitieId");
-
-                    b.ToTable("StudentsUniversities");
-                });
-
             modelBuilder.Entity("KomgrichApi.Models.universities", b =>
                 {
                     b.Property<long>("Id")
@@ -74,33 +56,34 @@ namespace KomgrichApi.Migrations
                     b.ToTable("universities");
                 });
 
-            modelBuilder.Entity("KomgrichApi.Models.StudentsUniversities", b =>
+            modelBuilder.Entity("Studentsuniversities", b =>
                 {
-                    b.HasOne("KomgrichApi.Models.Students", "Student")
-                        .WithMany("StudentsUniversitie")
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("universitieId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("StudentId", "universitieId");
+
+                    b.HasIndex("universitieId");
+
+                    b.ToTable("StudentsUniversities");
+                });
+
+            modelBuilder.Entity("Studentsuniversities", b =>
+                {
+                    b.HasOne("KomgrichApi.Models.Students", null)
+                        .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KomgrichApi.Models.universities", "universitie")
-                        .WithMany("StudentsUniversitie")
-                        .HasForeignKey("UniversitieId")
+                    b.HasOne("KomgrichApi.Models.universities", null)
+                        .WithMany()
+                        .HasForeignKey("universitieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Student");
-
-                    b.Navigation("universitie");
-                });
-
-            modelBuilder.Entity("KomgrichApi.Models.Students", b =>
-                {
-                    b.Navigation("StudentsUniversitie");
-                });
-
-            modelBuilder.Entity("KomgrichApi.Models.universities", b =>
-                {
-                    b.Navigation("StudentsUniversitie");
                 });
 #pragma warning restore 612, 618
         }
