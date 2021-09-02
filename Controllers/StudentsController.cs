@@ -28,7 +28,7 @@ namespace KomgrichApi.Controllers
             var result = await _context.Students.FromSqlRaw("select * from \"Students\" ")
                                             .Select(st => new {
                                                 fullname = st.fullname
-                                            })
+                                            }).Distinct()
                                             .AsNoTracking()
                                             .ToListAsync();
             
